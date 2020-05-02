@@ -1,0 +1,51 @@
+{
+  "name": "js-linting",
+  "version": "1.0.0",
+  "private": true,
+  "author": "Khoa Liber",
+  "license": "MIT",
+  "engines": {
+    "npm": ">=6.4.1",
+    "node": ">=10.13.0"
+  },
+  "scripts": {
+    "lint": "npm run typecheck && npm run lint:css && npm run lint:eslint:quiet .",
+    "lint:css": "stylelint './app/**/*.{js,ts,tsx}'",
+    "lint:eslint:quiet": "eslint --ext .ts,.tsx,.js,.jsx --no-error-on-unmatched-pattern --quiet",
+    "lint:eslint": "eslint --ext .ts,.tsx,.js,.jsx --no-error-on-unmatched-pattern",
+    "lint:eslint:fix": "eslint --ext .ts,.tsx,.js,.jsx --no-error-on-unmatched-pattern --quiet --fix",
+    "typecheck": "tsc --noEmit",
+    "prettify": "prettier --write"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "npm run lint:eslint:fix",
+      "git add --force"
+    ],
+    "*.{md,json}": [
+      "prettier --write",
+      "git add --force"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npx lint-staged && npm run typecheck"
+    }
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-typescript": "7.2.0",
+    "eslint-config-prettier": "6.10.1",
+    "eslint-import-resolver-typescript": "2.0.0",
+    "eslint-import-resolver-webpack": "0.12.1",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "2.5.1",
+    "eslint-plugin-redux-saga": "1.1.3",
+    "husky": "4.2.3",
+    "lint-staged": "10.0.8",
+    "prettier": "^2.0.5"
+  }
+}
